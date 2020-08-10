@@ -234,3 +234,14 @@ app.use(ejsLayouts);
 app.use('/likes', require('.controllers/likes'));
 ```
 Now we do not need to specify `/likes/animals` or `/likes/foods` in our URL pattern, because the Middleware is making our `controllers/likes` route do the rest. 
+
+### CRUD (Create Update Read Delete)
+
+### ORM (Object Relational Mappers)
+An Object Relational Mapper creates a 'map' that represents databases via JavaScript objects. When we use an ORM we can use JavaScript to CRUD data instead of writing SQL queries. 
+
+#### Sequelize
+*Sequelize* is an ORM written in JavaScript that is used in Node.js to work with relational databases like Postgres. With sequelize we can represent `models` (tables) and the data inside of them, represent how models are associated with eachother, validate data prior to adding to the database, and perform general database tasks in an OO fashion. 
+
+#### Modles
+A *Model* is a JS object that maps to a table (data relation) in a database. A model is kind of like the blueprint for each row of data contained in the table. Each instance of a model represents a row of data. 
