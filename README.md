@@ -243,5 +243,45 @@ An Object Relational Mapper creates a 'map' that represents databases via JavaSc
 #### Sequelize
 *Sequelize* is an ORM written in JavaScript that is used in Node.js to work with relational databases like Postgres. With sequelize we can represent `models` (tables) and the data inside of them, represent how models are associated with eachother, validate data prior to adding to the database, and perform general database tasks in an OO fashion. 
 
-#### Modles
-A *Model* is a JS object that maps to a table (data relation) in a database. A model is kind of like the blueprint for each row of data contained in the table. Each instance of a model represents a row of data. 
+#### Models
+A *Model* is a JS object that maps to a table (data relation) in a database.The model communicates with Sequelize about the database it represents ie. name of the table in the database, what the table's columns are, and the data types of its data.
+```sql
+                                      Table "public.pokemons"
+  Column   |           Type           | Collation | Nullable |               Default
+-----------+--------------------------+-----------+----------+--------------------------------------
+ id        | integer                  |           | not null | nextval('pokemons_id_seq'::regclass)
+ name      | character varying(255)   |           |          |
+ createdAt | timestamp with time zone |           | not null |
+ updatedAt | timestamp with time zone |           | not null |
+```
+#### Migration
+*Migration* (schema evolution | mutations) change a database's schema from one version to another. A migration plans out how to update your model entries. 
+```js
+'use strict';
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('pokemons', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      name: {
+        type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('pokemons');
+  }
+};
+```
